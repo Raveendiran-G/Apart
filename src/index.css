@@ -1,0 +1,4805 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+
+/* =========================================================
+   # GLOBAL
+   Basic page settings
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+    transition:
+        background 0.6s ease,
+        color 0.6s ease;
+}
+
+body.dark-mode {
+    background: #050505;
+    color: #ffffff;
+}
+
+body.light-mode {
+    background: #dfe3ea;
+    color: #111111;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   # BACKGROUND
+   Main background container
+========================================================= */
+
+.background-container {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    z-index: 0;
+
+    background: #050505;
+}
+
+
+/* ---------- Background Video ---------- */
+
+.background-video {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    z-index: 0;
+
+    pointer-events: none;
+}
+
+
+/* ---------- Background Overlay ---------- */
+
+.background-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    transition:
+        background 0.8s ease;
+}
+
+
+/* ---------- Page Content ---------- */
+
+.page-content {
+    position: relative;
+
+    min-height: 100vh;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   # DARK MODE BACKGROUND
+========================================================= */
+
+.background-dark {
+    background: #050505;
+}
+
+.background-dark .background-video {
+    filter:
+        brightness(0.40) contrast(1.25) saturate(1.35);
+
+    opacity: 0.80;
+}
+
+.background-dark .background-overlay {
+    background:
+        radial-gradient(circle at center,
+            rgba(0, 0, 0, 0.05) 0%,
+            rgba(0, 0, 0, 0.25) 45%,
+            rgba(0, 0, 0, 0.78) 100%);
+}
+
+
+/* =========================================================
+   # LIGHT MODE BACKGROUND
+========================================================= */
+
+.background-light {
+    background: #dfe3ea;
+}
+
+.background-light .background-video {
+    filter:
+        brightness(0.82) contrast(0.92) saturate(0.65);
+
+    opacity: 0.55;
+}
+
+.background-light .background-overlay {
+    background:
+        radial-gradient(circle at center,
+            rgba(255, 255, 255, 0.05) 0%,
+            rgba(255, 255, 255, 0.20) 50%,
+            rgba(235, 238, 245, 0.42) 100%);
+}
+
+
+/* =========================================================
+   # FLOATING BACKGROUND GLOWS
+========================================================= */
+
+.background-glow {
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    border-radius: 50%;
+
+    filter: blur(100px);
+
+    opacity: 0.12;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    animation:
+        floatingGlow 10s ease-in-out infinite alternate;
+}
+
+.glow-one {
+    top: 5%;
+    left: 5%;
+
+    background: #7c5cff;
+}
+
+.glow-two {
+    top: 35%;
+    right: 5%;
+
+    background: #00c8ff;
+
+    animation-delay: -3s;
+}
+
+.glow-three {
+    bottom: 0;
+    left: 40%;
+
+    background: #ff4ecd;
+
+    animation-delay: -6s;
+}
+
+
+/* ---------- Glow Animation ---------- */
+
+@keyframes floatingGlow {
+
+    0% {
+        transform:
+            translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform:
+            translate(80px, -50px) scale(1.2);
+    }
+
+    100% {
+        transform:
+            translate(-50px, 60px) scale(0.9);
+    }
+}
+
+
+/* =========================================================
+   # NAVBAR
+   Fixed glass navbar
+   Content scrolling underneath will NOT be visible
+========================================================= */
+
+.navbar {
+    position: fixed;
+
+    top: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: min(92%, 1200px);
+    height: 65px;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 100px;
+
+    /* Strong background prevents page content
+       from showing through the navbar */
+    background:
+        rgba(8, 8, 8, 0.94);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.14);
+
+    /* Keep the professional glass effect */
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    /* Very high so navbar stays above everything */
+    z-index: 99999;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.25);
+
+    transition:
+        background 0.4s ease,
+        color 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+
+/* =========================================================
+   # NAVBAR BACKDROP PROTECTION
+   Creates a solid layer behind navbar content
+========================================================= */
+
+.navbar::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: inherit;
+
+    background:
+        rgba(8, 8, 8, 0.92);
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   # LIGHT MODE NAVBAR
+========================================================= */
+
+.light-mode .navbar {
+    background:
+        rgba(245, 247, 250, 0.94);
+
+    border-color:
+        rgba(0, 0, 0, 0.10);
+
+    color: #111111;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Light mode protection layer */
+
+.light-mode .navbar::before {
+    background:
+        rgba(245, 247, 250, 0.94);
+}
+
+
+/* =========================================================
+   # BRAND
+========================================================= */
+
+.brand {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.brand:hover {
+    transform:
+        scale(1.04);
+}
+
+
+/* =========================================================
+   # NAVIGATION LINKS
+========================================================= */
+
+.nav-links {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    gap: 35px;
+}
+
+.nav-links a {
+    position: relative;
+
+    font-size: 14px;
+
+    opacity: 0.65;
+
+    transition:
+        opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+
+/* Underline animation */
+
+.nav-links a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -6px;
+
+    width: 0;
+    height: 1px;
+
+    background:
+        currentColor;
+
+    transition:
+        width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+
+/* =========================================================
+   # NAVBAR ACTIONS
+========================================================= */
+
+.nav-actions {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   # ICON BUTTON
+========================================================= */
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.15);
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    color: inherit;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border 0.3s ease;
+}
+
+
+/* Light mode icon */
+
+.light-mode .icon-button {
+    background:
+        rgba(255, 255, 255, 0.55);
+
+    border-color:
+        rgba(0, 0, 0, 0.08);
+
+    color: #111111;
+}
+
+
+.icon-button:hover {
+    transform:
+        scale(1.1);
+}
+
+/* =========================================================
+   # SOUND BUTTON
+========================================================= */
+
+.sound-active {
+    animation:
+        soundPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes soundPulse {
+
+    0%,
+    100% {
+        transform:
+            scale(1);
+    }
+
+    50% {
+        transform:
+            scale(1.08);
+    }
+}
+
+
+/* =========================================================
+   # HOME PAGE
+========================================================= */
+
+.home {
+    position: relative;
+
+    min-height: 100vh;
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding:
+        120px 20px;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   # HOME BACKGROUND
+   Home intentionally uses gradient.
+   Video is NOT shown on Home.
+========================================================= */
+
+.home-background {
+    background:
+        radial-gradient(circle at 20% 35%,
+            rgba(124, 92, 255, 0.18),
+            transparent 35%),
+
+        radial-gradient(circle at 80% 45%,
+            rgba(0, 200, 255, 0.15),
+            transparent 35%),
+
+        radial-gradient(circle at 50% 80%,
+            rgba(255, 78, 205, 0.15),
+            transparent 35%),
+
+        #050505;
+}
+
+
+/* ---------- Light Home Background ---------- */
+
+.light-mode .home-background {
+    background:
+        radial-gradient(circle at 20% 35%,
+            rgba(124, 92, 255, 0.16),
+            transparent 35%),
+
+        radial-gradient(circle at 80% 45%,
+            rgba(0, 200, 255, 0.13),
+            transparent 35%),
+
+        radial-gradient(circle at 50% 80%,
+            rgba(255, 78, 205, 0.14),
+            transparent 35%),
+
+        #eef0f5;
+}
+
+
+/* ---------- Hide Video on Home ---------- */
+
+.home-background .background-video {
+    display: none;
+}
+
+
+/* =========================================================
+   # HERO CONTENT
+========================================================= */
+
+.hero-content {
+    position: relative;
+
+    z-index: 10;
+
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   # HERO LABEL
+========================================================= */
+
+.hero-label {
+    display: block;
+
+    margin-bottom: 25px;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    letter-spacing: 6px;
+
+    opacity: 0.55;
+
+    transition:
+        color 0.5s ease;
+}
+
+.light-mode .hero-label {
+    color: #111111;
+}
+
+/* =========================================================
+   # PRODUCT DETAILS PAGE
+========================================================= */
+
+.product-details-page {
+    position: relative;
+
+    z-index: 5;
+
+    min-height: 100vh;
+
+    padding:
+        140px 6% 100px;
+}
+
+
+/* =========================================================
+   # DETAILS BACK BUTTON
+========================================================= */
+
+.details-back-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 50px;
+
+    font-size: 13px;
+
+    opacity: 0.65;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.details-back-button:hover {
+    opacity: 1;
+
+    transform:
+        translateX(-5px);
+}
+
+
+/* =========================================================
+   # PRODUCT DETAILS CONTAINER
+========================================================= */
+
+.product-details-container {
+    max-width: 1200px;
+
+    margin:
+        0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.1fr
+        0.9fr;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   # DETAILS IMAGE
+========================================================= */
+
+.details-image-container {
+    width: 100%;
+
+    min-height: 550px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 35px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        0 30px 80px
+        rgba(
+            0,
+            0,
+            0,
+            0.18
+        );
+}
+
+
+/* =========================================================
+   # DETAILS PRODUCT IMAGE
+========================================================= */
+
+.details-product-image {
+    width: 100%;
+
+    height: 100%;
+
+    min-height: 550px;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform 0.6s ease;
+}
+
+.details-image-container:hover
+.details-product-image {
+    transform:
+        scale(1.04);
+}
+
+
+/* =========================================================
+   # DETAILS IMAGE PLACEHOLDER
+========================================================= */
+
+.details-image-placeholder {
+    width: 100%;
+
+    height: 100%;
+
+    min-height: 550px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+
+    font-size: 45px;
+
+    font-weight: 700;
+
+    color: rgba(
+        255,
+        255,
+        255,
+        0.45
+    );
+}
+
+
+/* =========================================================
+   # DETAILS INFORMATION
+========================================================= */
+
+.details-product-info {
+    max-width: 500px;
+}
+
+
+/* =========================================================
+   # DETAILS EYEBROW
+========================================================= */
+
+.details-eyebrow {
+    margin-bottom: 18px;
+
+    font-size: 11px;
+
+    letter-spacing: 5px;
+
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   # DETAILS TITLE
+========================================================= */
+
+.details-product-info h1 {
+    margin: 0;
+
+    font-size:
+        clamp(
+            55px,
+            7vw,
+            95px
+        );
+
+    line-height: 0.9;
+
+    letter-spacing: -6px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   # DETAILS DESCRIPTION
+========================================================= */
+
+.details-description {
+    margin-top: 35px;
+
+    max-width: 430px;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    opacity: 0.6;
+}
+
+
+/* =========================================================
+   # DETAILS PRICE
+========================================================= */
+
+.details-price {
+    margin-top: 35px;
+
+    font-size: 28px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   # DETAILS FEATURES
+========================================================= */
+
+.details-features {
+    margin-top: 40px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.details-features > div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding-bottom: 15px;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.10
+        );
+}
+
+.light-mode .details-features > div {
+    border-bottom-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+.details-features span {
+    font-size: 10px;
+
+    opacity: 0.4;
+
+    letter-spacing: 1px;
+}
+
+.details-features p {
+    font-size: 13px;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================================
+   # DETAILS ACTION BUTTON
+========================================================= */
+
+.details-buy-button {
+    width: 100%;
+
+    margin-top: 40px;
+
+    min-height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    border: none;
+
+    border-radius: 100px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.details-buy-button:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(
+            0,
+            0,
+            0,
+            0.20
+        );
+}
+
+
+/* =========================================================
+   # PRODUCT NOT FOUND
+========================================================= */
+
+.product-not-found {
+    min-height: 70vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.product-not-found p {
+    font-size: 11px;
+
+    letter-spacing: 5px;
+
+    opacity: 0.5;
+}
+
+.product-not-found h1 {
+    margin-top: 20px;
+
+    max-width: 600px;
+
+    font-size:
+        clamp(
+            35px,
+            6vw,
+            70px
+        );
+
+    letter-spacing: -3px;
+}
+
+
+/* =========================================================
+   # BACK TO PRODUCTS BUTTON
+========================================================= */
+
+.back-products-button {
+    margin-top: 35px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        14px 25px;
+
+    border-radius: 100px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   # PRODUCT DETAILS - LIGHT MODE
+========================================================= */
+
+.light-mode .details-image-container {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+    box-shadow:
+        0 30px 80px
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+.light-mode .details-image-placeholder {
+    color:
+        rgba(
+            0,
+            0,
+            0,
+            0.30
+        );
+}
+
+
+/* =========================================================
+   # PRODUCT DETAILS - TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .product-details-container {
+        grid-template-columns:
+            1fr;
+
+        gap: 45px;
+    }
+
+    .details-product-info {
+        max-width: 100%;
+    }
+
+    .details-image-container {
+        min-height: 450px;
+    }
+
+    .details-product-image {
+        min-height: 450px;
+    }
+
+    .details-image-placeholder {
+        min-height: 450px;
+    }
+}
+
+
+/* =========================================================
+   # PRODUCT DETAILS - MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .product-details-page {
+        padding:
+            110px 20px 70px;
+    }
+
+    .details-back-button {
+        margin-bottom: 30px;
+    }
+
+    .product-details-container {
+        gap: 35px;
+    }
+
+    .details-image-container {
+        min-height: 330px;
+
+        border-radius: 25px;
+    }
+
+    .details-product-image {
+        min-height: 330px;
+    }
+
+    .details-image-placeholder {
+        min-height: 330px;
+
+        font-size: 30px;
+    }
+
+    .details-product-info h1 {
+        font-size: 60px;
+
+        letter-spacing: -4px;
+    }
+
+    .details-description {
+        font-size: 14px;
+
+        margin-top: 25px;
+    }
+
+    .details-price {
+        font-size: 24px;
+
+        margin-top: 25px;
+    }
+
+    .details-buy-button {
+        margin-top: 30px;
+    }
+}
+
+
+/* =========================================================
+   # PRODUCT DETAILS - SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .details-product-info h1 {
+        font-size: 52px;
+
+        letter-spacing: -3px;
+    }
+
+    .details-image-container {
+        min-height: 280px;
+    }
+
+    .details-product-image {
+        min-height: 280px;
+    }
+
+    .details-image-placeholder {
+        min-height: 280px;
+    }
+}
+
+/* =========================================================
+   # APART LOGO / HERO TITLE
+========================================================= */
+
+.hero-content h1 {
+    display: block;
+
+    margin: 0;
+
+    font-size:
+        clamp(90px,
+            18vw,
+            220px);
+
+    line-height: 0.85;
+
+    font-weight: 800;
+
+    letter-spacing: -12px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 40px rgba(255, 255, 255, 0.08);
+
+    user-select: none;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transition:
+        color 0.5s ease;
+}
+
+
+/* ---------- Light Mode Logo ---------- */
+
+.light-mode .hero-content h1 {
+    color: #111111;
+
+    text-shadow:
+        0 0 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   # APART DOT FORMATION ANIMATION
+========================================================= */
+
+.home-logo {
+    position: relative;
+
+    animation:
+        apartDotReveal 1.6s cubic-bezier(0.16,
+            1,
+            0.3,
+            1) both;
+
+    transform-origin: center;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+    text-shadow:
+        0 0 2px currentColor,
+        0 0 12px rgba(255, 255, 255, 0.12);
+}
+
+
+/* ---------- Logo Animation ---------- */
+
+@keyframes apartDotReveal {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            scale(0.75) translateY(20px);
+
+        filter:
+            blur(12px);
+
+        letter-spacing: 25px;
+    }
+
+    20% {
+        opacity: 0.15;
+
+        transform:
+            scale(0.82) translateY(12px);
+
+        filter:
+            blur(8px);
+
+        letter-spacing: 18px;
+    }
+
+    45% {
+        opacity: 0.45;
+
+        transform:
+            scale(0.92) translateY(5px);
+
+        filter:
+            blur(4px);
+
+        letter-spacing: 8px;
+    }
+
+    70% {
+        opacity: 0.8;
+
+        transform:
+            scale(1.03) translateY(-2px);
+
+        filter:
+            blur(1px);
+
+        letter-spacing: -4px;
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            scale(1) translateY(0);
+
+        filter:
+            blur(0);
+
+        letter-spacing: -12px;
+    }
+}
+
+
+/* =========================================================
+   # HERO DESCRIPTION
+========================================================= */
+
+.hero-description {
+    display: block;
+
+    max-width: 520px;
+
+    margin:
+        40px auto;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    font-weight: 400;
+
+    opacity: 0.65;
+
+    color: #ffffff;
+
+    transition:
+        color 0.5s ease;
+}
+
+.light-mode .hero-description {
+    color: #111111;
+}
+
+
+/* =========================================================
+   # EXPLORE PRODUCTS BUTTON
+========================================================= */
+
+.explore-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 210px;
+
+    padding:
+        15px 30px;
+
+    border-radius: 100px;
+
+    border: none;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.explore-button:hover {
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.explore-button svg {
+    transition:
+        transform 0.3s ease;
+}
+
+.explore-button:hover svg {
+    transform:
+        translate(3px,
+            -3px);
+}
+
+
+/* =========================================================
+   # SCROLL INDICATOR
+========================================================= */
+
+.scroll-indicator {
+    position: absolute;
+
+    bottom: 30px;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    font-size: 11px;
+
+    opacity: 0.45;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #ffffff;
+
+    z-index: 5;
+
+    transition:
+        color 0.5s ease;
+}
+
+.light-mode .scroll-indicator {
+    color: #111111;
+}
+
+.scroll-indicator span {
+    width: 25px;
+    height: 1px;
+
+    background:
+        currentColor;
+}
+
+.scroll-indicator svg {
+    opacity: 0.7;
+}
+
+
+/* =========================================================
+   # FLOATING HOME CARDS
+========================================================= */
+
+.floating-card {
+    position: absolute;
+
+    z-index: 6;
+
+    width: 150px;
+    height: 95px;
+
+    padding: 18px;
+
+    border-radius: 22px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    text-align: left;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.14);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.15);
+
+    pointer-events: none;
+}
+
+.floating-card span {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.45;
+}
+
+.floating-card p {
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* ---------- Dark Floating Cards ---------- */
+
+.dark-mode .floating-card {
+    background:
+        rgba(255, 255, 255, 0.07);
+
+    border-color:
+        rgba(255, 255, 255, 0.13);
+
+    color: #ffffff;
+}
+
+
+/* ---------- Light Floating Cards ---------- */
+
+.light-mode .floating-card {
+    background:
+        rgba(255, 255, 255, 0.45);
+
+    border-color:
+        rgba(0, 0, 0, 0.08);
+
+    color: #111111;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ---------- Floating Card Positions ---------- */
+
+.card-one {
+    top: 32%;
+    left: 8%;
+}
+
+.card-two {
+    right: 8%;
+    bottom: 27%;
+}
+
+
+/* =========================================================
+   # PRODUCTS BACKGROUND
+   Video is enabled on Products page
+========================================================= */
+
+.products-background {
+    background: #050505;
+}
+
+.products-background .background-video {
+    display: block;
+}
+
+
+/* =========================================================
+   # PRODUCTS PAGE
+========================================================= */
+
+.products-page {
+    min-height: 100vh;
+
+    padding:
+        150px 6% 80px;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   # PRODUCTS HEADER
+========================================================= */
+
+.products-header {
+    text-align: center;
+
+    margin-bottom: 70px;
+}
+
+.products-header p {
+    font-size: 11px;
+
+    letter-spacing: 5px;
+
+    opacity: 0.5;
+}
+
+.products-header h1 {
+    margin-top: 15px;
+
+    font-size:
+        clamp(60px,
+            10vw,
+            120px);
+
+    letter-spacing: -7px;
+
+    line-height: 0.9;
+}
+
+.products-header span {
+    display: block;
+
+    margin-top: 25px;
+
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   # PRODUCT GRID
+========================================================= */
+
+.products-grid {
+    max-width: 1400px;
+
+    margin:
+        0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,
+            minmax(0, 1fr));
+
+    gap: 25px;
+}
+
+
+/* =========================================================
+   # PRODUCT CARD
+========================================================= */
+
+.product-card {
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,
+            255,
+            255,
+            0.08);
+
+    border:
+        1px solid rgba(255,
+            255,
+            255,
+            0.12);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    transition:
+        background 0.4s ease,
+        border 0.4s ease,
+        box-shadow 0.4s ease,
+        transform 0.4s ease;
+}
+
+.product-card:hover {
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ---------- Light Product Card ---------- */
+
+.light-mode .product-card {
+    background:
+        rgba(255,
+            255,
+            255,
+            0.55);
+
+    border-color:
+        rgba(0,
+            0,
+            0,
+            0.08);
+
+    color: #111111;
+
+    box-shadow:
+        0 10px 40px rgba(0,
+            0,
+            0,
+            0.05);
+}
+
+
+/* =========================================================
+   # PRODUCT IMAGE
+========================================================= */
+
+.product-image-wrapper {
+    overflow: hidden;
+
+    aspect-ratio:
+        1 / 1;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform 0.6s ease;
+}
+
+.product-card:hover .product-image {
+    transform:
+        scale(1.08);
+}
+
+
+/* =========================================================
+   # PRODUCT INFORMATION
+========================================================= */
+
+.product-info {
+    padding: 24px;
+}
+
+.product-info h2 {
+    font-size: 20px;
+}
+
+.product-info p {
+    margin-top: 10px;
+
+    min-height: 45px;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    opacity: 0.55;
+}
+
+
+/* =========================================================
+   # PRODUCT BOTTOM
+========================================================= */
+
+.product-bottom {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 25px;
+}
+
+.product-price {
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   # PRODUCT VIEW BUTTON
+========================================================= */
+
+.view-button {
+    padding:
+        9px 17px;
+
+    border: none;
+
+    border-radius: 100px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.view-button:hover {
+    transform:
+        scale(1.05);
+
+    box-shadow:
+        0 8px 20px rgba(0,
+            0,
+            0,
+            0.15);
+}
+
+
+/* =========================================================
+   # FOOTER
+   Professional footer
+========================================================= */
+
+.footer {
+    position: relative;
+
+    z-index: 10;
+
+    margin-top: 80px;
+
+    padding:
+        70px 6% 25px;
+
+    background:
+        rgba(5,
+            5,
+            5,
+            0.72);
+
+    border-top:
+        1px solid rgba(255,
+            255,
+            255,
+            0.10);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    color: #ffffff;
+}
+
+
+/* ---------- Light Footer ---------- */
+
+.light-mode .footer {
+    background:
+        rgba(245,
+            247,
+            250,
+            0.78);
+
+    border-top-color:
+        rgba(0,
+            0,
+            0,
+            0.08);
+
+    color: #111111;
+}
+
+
+/* =========================================================
+   # FOOTER CONTAINER
+========================================================= */
+
+.footer-container {
+    max-width: 1400px;
+
+    margin:
+        0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr 1.4fr 1fr;
+
+    gap: 60px;
+}
+
+
+/* =========================================================
+   # FOOTER BRAND
+========================================================= */
+
+.footer-brand {
+    max-width: 330px;
+}
+
+.footer-logo {
+    display: inline-block;
+
+    font-size: 32px;
+
+    font-weight: 800;
+
+    letter-spacing: -1.5px;
+
+    margin-bottom: 18px;
+}
+
+.footer-brand>p {
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    opacity: 0.55;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   # FOOTER LOCATION
+========================================================= */
+
+.footer-location {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 13px;
+
+    opacity: 0.65;
+}
+
+
+/* =========================================================
+   # FOOTER COLUMNS
+========================================================= */
+
+.footer-column {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 13px;
+}
+
+.footer-column h3 {
+    margin-bottom: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    opacity: 0.5;
+}
+
+.footer-column a {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 13px;
+
+    opacity: 0.65;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.footer-column a:hover {
+    opacity: 1;
+
+    transform:
+        translateX(4px);
+}
+
+
+/* =========================================================
+   # FOOTER SOCIAL ICONS
+========================================================= */
+
+.footer-socials {
+    display: flex;
+
+    gap: 10px;
+}
+
+.footer-socials a {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255,
+            255,
+            255,
+            0.12);
+
+    background:
+        rgba(255,
+            255,
+            255,
+            0.06);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border 0.3s ease;
+}
+
+
+/* ---------- Light Social Icons ---------- */
+
+.light-mode .footer-socials a {
+    border-color:
+        rgba(0,
+            0,
+            0,
+            0.10);
+
+    background:
+        rgba(255,
+            255,
+            255,
+            0.5);
+}
+
+.footer-socials a:hover {
+    transform:
+        translateY(-4px);
+
+    background:
+        rgba(255,
+            255,
+            255,
+            0.14);
+}
+
+
+/* =========================================================
+   # FOOTER BOTTOM
+========================================================= */
+
+.footer-bottom {
+    max-width: 1400px;
+
+    margin:
+        60px auto 0;
+
+    padding-top: 22px;
+
+    border-top:
+        1px solid rgba(255,
+            255,
+            255,
+            0.10);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    font-size: 11px;
+
+    opacity: 0.5;
+}
+
+.light-mode .footer-bottom {
+    border-top-color:
+        rgba(0,
+            0,
+            0,
+            0.08);
+}
+
+
+/* =========================================================
+   # MADE WITH LOVE - INDIA
+========================================================= */
+
+.made-in-india {
+    white-space: nowrap;
+}
+
+.made-in-india span {
+    display: inline-block;
+
+    animation:
+        heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+
+    0%,
+    100% {
+        transform:
+            scale(1);
+    }
+
+    15% {
+        transform:
+            scale(1.2);
+    }
+
+    30% {
+        transform:
+            scale(1);
+    }
+
+    45% {
+        transform:
+            scale(1.15);
+    }
+
+    60% {
+        transform:
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   # TABLET RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    /* ---------- Products ---------- */
+
+    .products-grid {
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+    }
+
+
+    /* ---------- Floating Cards ---------- */
+
+    .floating-card {
+        width: 130px;
+        height: 85px;
+    }
+
+    .card-one {
+        left: 4%;
+    }
+
+    .card-two {
+        right: 4%;
+    }
+}
+
+
+/* =========================================================
+   # TABLET FOOTER
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .footer-container {
+        grid-template-columns:
+            repeat(2,
+                1fr);
+
+        gap: 45px;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+}
+
+
+/* =========================================================
+   # MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    /* =====================================================
+       # MOBILE NAVBAR
+    ===================================================== */
+
+    .navbar {
+        top: 12px;
+
+        width: 94%;
+
+        height: 60px;
+
+        padding:
+            0 15px;
+    }
+
+    .brand {
+        font-size: 21px;
+    }
+
+    .nav-links {
+        gap: 14px;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
+    .nav-actions {
+        gap: 5px;
+    }
+
+    .icon-button {
+        width: 34px;
+        height: 34px;
+    }
+
+
+    /* =====================================================
+       # MOBILE HOME
+    ===================================================== */
+
+    .home {
+        min-height: 100svh;
+
+        padding:
+            110px 20px 80px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-label {
+        font-size: 10px;
+
+        letter-spacing: 4px;
+
+        margin-bottom: 20px;
+    }
+
+    .hero-content h1 {
+        font-size:
+            clamp(75px,
+                24vw,
+                120px);
+
+        letter-spacing: -7px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+
+        max-width: 330px;
+
+        margin:
+            30px auto;
+    }
+
+    .explore-button {
+        min-width: 190px;
+
+        padding:
+            14px 25px;
+    }
+
+
+    /* =====================================================
+       # MOBILE FLOATING CARDS
+    ===================================================== */
+
+    .floating-card {
+        width: 105px;
+
+        height: 70px;
+
+        padding: 12px;
+
+        border-radius: 16px;
+    }
+
+    .floating-card span {
+        font-size: 8px;
+    }
+
+    .floating-card p {
+        font-size: 11px;
+    }
+
+    .card-one {
+        top: 25%;
+        left: 3%;
+    }
+
+    .card-two {
+        right: 3%;
+        bottom: 25%;
+    }
+
+
+    /* =====================================================
+       # MOBILE PRODUCTS
+    ===================================================== */
+
+    .products-page {
+        padding:
+            120px 20px 60px;
+    }
+
+    .products-header {
+        margin-bottom: 45px;
+    }
+
+    .products-header h1 {
+        letter-spacing: -4px;
+    }
+
+    .products-grid {
+        grid-template-columns:
+            1fr;
+
+        gap: 18px;
+    }
+
+    .product-card {
+        border-radius: 24px;
+    }
+
+
+    /* =====================================================
+       # MOBILE SCROLL INDICATOR
+    ===================================================== */
+
+    .scroll-indicator {
+        bottom: 20px;
+    }
+
+
+    /* =====================================================
+       # MOBILE FOOTER
+    ===================================================== */
+
+    .footer {
+        margin-top: 50px;
+
+        padding:
+            50px 25px 20px;
+    }
+
+    .footer-container {
+        grid-template-columns:
+            1fr;
+
+        gap: 35px;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+
+    .footer-column {
+        gap: 11px;
+    }
+
+    .footer-bottom {
+        margin-top: 40px;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+        gap: 10px;
+    }
+
+    .made-in-india {
+        white-space: normal;
+    }
+}
+
+
+/* =========================================================
+   # SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    /* ---------- Navbar ---------- */
+
+    .navbar {
+        width: 96%;
+    }
+
+    .nav-links {
+        gap: 9px;
+    }
+
+    .nav-links a {
+        font-size: 11px;
+    }
+
+    .brand {
+        font-size: 19px;
+    }
+
+
+    /* ---------- Home ---------- */
+
+    .hero-content h1 {
+        font-size: 72px;
+
+        letter-spacing: -6px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+    }
+
+
+    /* ---------- Products ---------- */
+
+    .products-header h1 {
+        font-size: 60px;
+    }
+
+
+    /* ---------- Floating Cards ---------- */
+
+    .floating-card {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   # ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+a:focus-visible {
+    outline:
+        2px solid currentColor;
+
+    outline-offset: 4px;
+}
+
+
+/* =========================================================
+   # REDUCE MOTION
+   Respects user's system accessibility preference
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        scroll-behavior:
+            auto !important;
+    }
+}
+
+/* =========================================================
+   # HOME - ANIMATED GRADIENT MOVEMENT
+   Creates a slow, smooth flowing background effect
+========================================================= */
+
+.home-background {
+    position: fixed;
+    inset: 0;
+
+    z-index: -2;
+
+    overflow: hidden;
+
+    /* Existing gradient */
+    background:
+        radial-gradient(
+            circle at 20% 35%,
+            rgba(124, 92, 255, 0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 45%,
+            rgba(0, 200, 255, 0.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(255, 78, 205, 0.16),
+            transparent 35%
+        ),
+        #eef0f5;
+}
+
+
+/* =========================================================
+   # MOVING LIGHT BLOBS
+========================================================= */
+
+.home-background::before,
+.home-background::after {
+    content: "";
+
+    position: absolute;
+
+    width: 55vw;
+    height: 55vw;
+
+    border-radius: 50%;
+
+    filter: blur(90px);
+
+    pointer-events: none;
+
+    opacity: 0.45;
+
+    will-change: transform;
+
+}
+
+
+/* PURPLE / BLUE LIGHT */
+
+.home-background::before {
+
+    top: -15%;
+    left: -10%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124, 92, 255, 0.28),
+            transparent 65%
+        );
+
+    animation:
+        homeGradientMoveOne 14s
+        ease-in-out
+        infinite alternate;
+}
+
+
+/* PINK / CYAN LIGHT */
+
+.home-background::after {
+
+    right: -15%;
+    bottom: -15%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 200, 255, 0.22),
+            transparent 65%
+        );
+
+    animation:
+        homeGradientMoveTwo 18s
+        ease-in-out
+        infinite alternate;
+}
+
+
+/* =========================================================
+   # GRADIENT MOVEMENT 1
+========================================================= */
+
+@keyframes homeGradientMoveOne {
+
+    0% {
+        transform:
+            translate3d(
+                -5vw,
+                -3vh,
+                0
+            )
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                18vw,
+                12vh,
+                0
+            )
+            scale(1.15);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                5vw,
+                28vh,
+                0
+            )
+            scale(1.05);
+    }
+}
+
+
+/* =========================================================
+   # GRADIENT MOVEMENT 2
+========================================================= */
+
+@keyframes homeGradientMoveTwo {
+
+    0% {
+        transform:
+            translate3d(
+                5vw,
+                5vh,
+                0
+            )
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                -18vw,
+                -12vh,
+                0
+            )
+            scale(1.2);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                -5vw,
+                -25vh,
+                0
+            )
+            scale(1.05);
+    }
+}
+
+
+/* =========================================================
+   # DARK MODE
+========================================================= */
+
+.dark-mode .home-background {
+    background:
+        radial-gradient(
+            circle at 20% 35%,
+            rgba(124, 92, 255, 0.16),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 45%,
+            rgba(0, 200, 255, 0.13),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(255, 78, 205, 0.15),
+            transparent 35%
+        ),
+        #050505;
+}
+
+
+/* =========================================================
+   # DARK MODE MOVING LIGHTS
+========================================================= */
+
+.dark-mode .home-background::before {
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124, 92, 255, 0.20),
+            transparent 65%
+        );
+
+    opacity: 0.35;
+}
+
+
+.dark-mode .home-background::after {
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 200, 255, 0.16),
+            transparent 65%
+        );
+
+    opacity: 0.3;
+}
+
+
+/* =========================================================
+   # REDUCED MOTION
+   Respects user's accessibility settings
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .home-background::before,
+    .home-background::after {
+
+        animation: none;
+    }
+}
+
+/* =========================================================
+   # PHASE 3.1 - PRODUCT SEARCH
+========================================================= */
+
+
+/* =========================================================
+   # SEARCH WRAPPER
+========================================================= */
+
+.products-search-wrapper {
+    width: 100%;
+
+    max-width: 650px;
+
+    margin:
+        0 auto 20px;
+}
+
+
+/* =========================================================
+   # SEARCH BOX
+========================================================= */
+
+.products-search {
+    position: relative;
+
+    width: 100%;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    border-radius: 100px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.14
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    transition:
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* =========================================================
+   # SEARCH FOCUS
+========================================================= */
+
+.products-search:focus-within {
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.35
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+
+    box-shadow:
+        0 10px 40px
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+}
+
+
+/* =========================================================
+   # SEARCH ICON
+========================================================= */
+
+.search-icon {
+    margin-left: 20px;
+
+    flex-shrink: 0;
+
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   # SEARCH INPUT
+========================================================= */
+
+.products-search input {
+    width: 100%;
+
+    height: 100%;
+
+    padding:
+        0 50px 0 14px;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: inherit;
+
+    font-family: inherit;
+
+    font-size: 14px;
+}
+
+.products-search input::placeholder {
+    color: currentColor;
+
+    opacity: 0.45;
+}
+
+
+/* =========================================================
+   # CLEAR BUTTON
+========================================================= */
+
+.search-clear {
+    position: absolute;
+
+    right: 10px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.10
+        );
+
+    color: inherit;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.search-clear:hover {
+    transform:
+        scale(1.08);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.18
+        );
+}
+
+
+/* =========================================================
+   # SEARCH RESULT INFO
+========================================================= */
+
+.search-result-info {
+    max-width: 1400px;
+
+    margin:
+        0 auto 30px;
+
+    padding:
+        0 5px;
+
+    font-size: 12px;
+
+    opacity: 0.5;
+
+    text-align: left;
+}
+
+.search-result-info strong {
+    opacity: 1;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   # NO PRODUCTS
+========================================================= */
+
+.no-products {
+    min-height: 400px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 40px;
+}
+
+
+/* =========================================================
+   # NO PRODUCTS ICON
+========================================================= */
+
+.no-products-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+
+    margin-bottom: 25px;
+
+    opacity: 0.6;
+}
+
+.no-products h2 {
+    font-size: 28px;
+
+    letter-spacing: -1px;
+}
+
+.no-products p {
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   # SHOW ALL BUTTON
+========================================================= */
+
+.no-products button {
+    margin-top: 25px;
+
+    padding:
+        12px 22px;
+
+    border: none;
+
+    border-radius: 100px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.no-products button:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(
+            0,
+            0,
+            0,
+            0.18
+        );
+}
+
+
+/* =========================================================
+   # LIGHT MODE SEARCH
+========================================================= */
+
+.light-mode .products-search {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+.light-mode .products-search:focus-within {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.75
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.16
+        );
+
+    box-shadow:
+        0 10px 40px
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+.light-mode .search-clear {
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.06
+        );
+}
+
+.light-mode .search-clear:hover {
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.10
+        );
+}
+
+.light-mode .no-products-icon {
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.04
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+
+/* =========================================================
+   # SEARCH - MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .products-search-wrapper {
+        max-width: 100%;
+
+        margin-bottom: 15px;
+    }
+
+    .products-search {
+        height: 52px;
+    }
+
+    .products-search input {
+        font-size: 13px;
+    }
+
+    .search-result-info {
+        margin-bottom: 22px;
+
+        font-size: 11px;
+    }
+
+    .no-products {
+        min-height: 300px;
+
+        padding: 25px;
+    }
+
+    .no-products h2 {
+        font-size: 23px;
+    }
+}
+
+/* =========================================================
+   # PRODUCT SORT ROW
+========================================================= */
+
+.products-sort-row {
+    max-width: 1400px;
+
+    margin:
+        25px auto 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   # PRODUCT COUNT
+========================================================= */
+
+.products-count {
+    font-size: 12px;
+
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   # SORT WRAPPER
+========================================================= */
+
+.sort-wrapper {
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        0 14px;
+
+    border-radius: 100px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+
+    transition:
+        background 0.3s ease,
+        border 0.3s ease;
+}
+
+
+/* =========================================================
+   # SORT SELECT
+========================================================= */
+
+.sort-wrapper select {
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: inherit;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.sort-wrapper select option {
+    background: #111111;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   # LIGHT MODE SORT
+========================================================= */
+
+.light-mode .sort-wrapper {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.60
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+.light-mode .sort-wrapper select option {
+    background: #ffffff;
+
+    color: #111111;
+}
+
+
+/* =========================================================
+   # MOBILE SORT
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .products-sort-row {
+        margin-top: 20px;
+
+        margin-bottom: 25px;
+    }
+
+    .products-count {
+        font-size: 11px;
+    }
+
+    .sort-wrapper {
+        height: 40px;
+
+        padding:
+            0 11px;
+    }
+
+    .sort-wrapper select {
+        font-size: 11px;
+
+        max-width: 150px;
+    }
+}
+
+/* =========================================================
+   # PHASE 3.3
+   PROFESSIONAL PRODUCT CARD
+========================================================= */
+
+
+/* =========================================================
+   # PRODUCT CARD
+========================================================= */
+
+.product-card {
+    position: relative;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    transform: translateY(0);
+
+    will-change: transform;
+
+    transition:
+        transform 0.45s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        box-shadow 0.45s ease,
+        border-color 0.45s ease;
+}
+
+
+/* =========================================================
+   # CARD HOVER
+========================================================= */
+
+.product-card:hover {
+    transform:
+        translateY(-10px);
+
+    box-shadow:
+        0 25px 60px
+        rgba(
+            0,
+            0,
+            0,
+            0.20
+        );
+}
+
+
+/* =========================================================
+   # PRODUCT IMAGE AREA
+========================================================= */
+
+.product-image-wrapper {
+    position: relative;
+
+    overflow: hidden;
+
+    aspect-ratio: 1 / 1;
+}
+
+
+/* =========================================================
+   # IMAGE
+========================================================= */
+
+.product-image {
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transform:
+        scale(1);
+
+    transition:
+        transform 0.8s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        filter 0.5s ease;
+}
+
+
+/* =========================================================
+   # IMAGE HOVER
+========================================================= */
+
+.product-card:hover
+.product-image {
+
+    transform:
+        scale(1.08);
+
+    filter:
+        brightness(1.05)
+        saturate(1.05);
+}
+
+
+/* =========================================================
+   # IMAGE SHINE
+========================================================= */
+
+.product-image-wrapper::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 35%,
+            rgba(
+                255,
+                255,
+                255,
+                0.12
+            ) 50%,
+            transparent 65%
+        );
+
+    transform:
+        translateX(-120%);
+
+    transition:
+        transform 0.8s ease;
+}
+
+
+.product-card:hover
+.product-image-wrapper::after {
+
+    transform:
+        translateX(120%);
+}
+
+
+/* =========================================================
+   # PRODUCT NUMBER
+========================================================= */
+
+.product-number {
+
+    position: absolute;
+
+    top: 15px;
+
+    right: 15px;
+
+    z-index: 2;
+
+    min-width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.35
+        );
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.18
+        );
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    opacity: 0.8;
+
+    transition:
+        transform 0.4s ease,
+        opacity 0.4s ease;
+}
+
+
+.product-card:hover
+.product-number {
+
+    transform:
+        rotate(8deg)
+        scale(1.08);
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   # IMAGE PLACEHOLDER
+========================================================= */
+
+.product-image-placeholder {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    text-align: center;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    opacity: 0.3;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.05
+        );
+}
+
+
+/* =========================================================
+   # PRODUCT INFO
+========================================================= */
+
+.product-info {
+
+    position: relative;
+
+    padding: 25px;
+}
+
+
+/* =========================================================
+   # PRODUCT TITLE
+========================================================= */
+
+.product-title-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.product-info h2 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+    font-weight: 650;
+
+    letter-spacing: -0.5px;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.product-card:hover
+.product-info h2 {
+
+    transform:
+        translateX(2px);
+}
+
+
+/* =========================================================
+   # DESCRIPTION
+========================================================= */
+
+.product-info p {
+
+    margin-top: 10px;
+
+    min-height: 45px;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    opacity: 0.55;
+}
+
+
+/* =========================================================
+   # PRODUCT BOTTOM
+========================================================= */
+
+.product-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 25px;
+}
+
+
+/* =========================================================
+   # PRICE
+========================================================= */
+
+.product-price {
+
+    font-size: 16px;
+
+    font-weight: 650;
+
+    letter-spacing: -0.2px;
+}
+
+
+/* =========================================================
+   # VIEW BUTTON
+========================================================= */
+
+.view-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    padding:
+        10px 16px;
+
+    border-radius: 100px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition:
+        transform 0.3s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        box-shadow 0.3s ease;
+}
+
+
+.view-button svg {
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.view-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(
+            0,
+            0,
+            0,
+            0.20
+        );
+}
+
+
+.view-button:hover svg {
+
+    transform:
+        translate(
+            2px,
+            -2px
+        );
+}
+
+
+/* =========================================================
+   # DARK MODE CARD
+========================================================= */
+
+.dark-mode .product-card {
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+}
+
+
+.dark-mode .product-card:hover {
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.22
+        );
+
+    box-shadow:
+        0 25px 60px
+        rgba(
+            0,
+            0,
+            0,
+            0.35
+        );
+}
+
+
+/* =========================================================
+   # LIGHT MODE CARD
+========================================================= */
+
+.light-mode .product-card {
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.58
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+    box-shadow:
+        0 10px 40px
+        rgba(
+            0,
+            0,
+            0,
+            0.06
+        );
+}
+
+
+.light-mode .product-card:hover {
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.14
+        );
+
+    box-shadow:
+        0 25px 60px
+        rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+}
+
+
+.light-mode .product-number {
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.55
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+    color: #111111;
+}
+
+
+/* =========================================================
+   # PRODUCT ENTRANCE ANIMATION
+========================================================= */
+
+.products-grid .product-card {
+
+    animation:
+        productCardAppear
+        0.7s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        )
+        both;
+}
+
+
+/* Stagger each card */
+
+.products-grid
+.product-card:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.products-grid
+.product-card:nth-child(2) {
+    animation-delay: 0.10s;
+}
+
+.products-grid
+.product-card:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.products-grid
+.product-card:nth-child(4) {
+    animation-delay: 0.20s;
+}
+
+.products-grid
+.product-card:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.products-grid
+.product-card:nth-child(6) {
+    animation-delay: 0.30s;
+}
+
+.products-grid
+.product-card:nth-child(7) {
+    animation-delay: 0.35s;
+}
+
+.products-grid
+.product-card:nth-child(8) {
+    animation-delay: 0.40s;
+}
+
+
+@keyframes productCardAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   # TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .product-info {
+
+        padding: 20px;
+    }
+
+    .product-info h2 {
+
+        font-size: 18px;
+    }
+
+    .product-info p {
+
+        font-size: 12px;
+    }
+
+    .product-bottom {
+
+        margin-top: 20px;
+    }
+}
+
+
+/* =========================================================
+   # MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .product-card {
+
+        border-radius: 24px;
+    }
+
+    .product-info {
+
+        padding: 20px;
+    }
+
+    .product-info h2 {
+
+        font-size: 19px;
+    }
+
+    .product-info p {
+
+        font-size: 13px;
+
+        min-height: auto;
+    }
+
+    .product-number {
+
+        top: 12px;
+
+        right: 12px;
+
+        width: 31px;
+
+        min-width: 31px;
+
+        height: 31px;
+    }
+
+    .view-button {
+
+        padding:
+            10px 15px;
+    }
+}
+
+
+/* =========================================================
+   # SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .product-bottom {
+
+        align-items: center;
+    }
+
+    .product-price {
+
+        font-size: 15px;
+    }
+
+    .view-button {
+
+        padding:
+            9px 13px;
+
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   # REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .product-card,
+    .product-image,
+    .product-image-wrapper::after,
+    .product-number,
+    .view-button,
+    .view-button svg {
+
+        animation: none !important;
+
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   # PHASE 4
+   OFFICIAL SHOPPING WEBSITE
+========================================================= */
+
+
+/* =========================================================
+   # OFFICIAL WEBSITE BUTTON
+========================================================= */
+
+.official-buy-button {
+
+    width: 100%;
+
+    min-height: 58px;
+
+    margin-top: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    border-radius: 100px;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        box-shadow 0.3s ease;
+}
+
+
+/* =========================================================
+   # EXTERNAL LINK ICON
+========================================================= */
+
+.official-buy-button svg {
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+/* =========================================================
+   # BUTTON HOVER
+========================================================= */
+
+.official-buy-button:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(
+            0,
+            0,
+            0,
+            0.20
+        );
+}
+
+
+.official-buy-button:hover svg {
+
+    transform:
+        translate(
+            3px,
+            -3px
+        );
+}
+
+
+/* =========================================================
+   # OFFICIAL LINK NOTE
+========================================================= */
+
+.official-link-note {
+
+    margin-top: 14px;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    opacity: 0.4;
+}
+
+
+/* =========================================================
+   # LIGHT MODE
+========================================================= */
+
+.light-mode .official-buy-button {
+
+    background: #111111;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   # MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .official-buy-button {
+
+        min-height: 55px;
+
+        margin-top: 30px;
+
+        font-size: 13px;
+    }
+
+    .official-link-note {
+
+        font-size: 10px;
+    }
+}
+
+/* =========================================================
+   # CUSTOM SORT DROPDOWN
+========================================================= */
+
+.custom-sort {
+    position: relative;
+
+    z-index: 100;
+}
+
+
+/* =========================================================
+   # SORT TRIGGER
+========================================================= */
+
+.sort-trigger {
+
+    min-width: 170px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    padding:
+        0 15px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.15
+        );
+
+    border-radius: 100px;
+
+    background:
+        rgba(
+            20,
+            25,
+            30,
+            0.60
+        );
+
+    color: #ffffff;
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        0 8px 30px
+        rgba(
+            0,
+            0,
+            0,
+            0.15
+        );
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.sort-trigger:hover {
+
+    background:
+        rgba(
+            40,
+            45,
+            50,
+            0.75
+        );
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 35px
+        rgba(
+            0,
+            0,
+            0,
+            0.22
+        );
+}
+
+
+/* =========================================================
+   # SORT ARROW
+========================================================= */
+
+.sort-arrow {
+
+    font-size: 13px;
+
+    opacity: 0.6;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.sort-arrow.open {
+
+    transform:
+        rotate(180deg);
+}
+
+
+/* =========================================================
+   # SORT MENU
+========================================================= */
+
+.sort-menu {
+
+    position: absolute;
+
+    top: calc(
+        100% + 10px
+    );
+
+    right: 0;
+
+    width: 220px;
+
+    padding: 7px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.15
+        );
+
+    border-radius: 20px;
+
+    background:
+        rgba(
+            15,
+            18,
+            22,
+            0.88
+        );
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(
+            0,
+            0,
+            0,
+            0.35
+        );
+
+    animation:
+        sortMenuOpen
+        0.25s ease
+        both;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   # SORT MENU ANIMATION
+========================================================= */
+
+@keyframes sortMenuOpen {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-8px)
+            scale(0.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   # SORT OPTION
+========================================================= */
+
+.sort-option {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 13px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: transparent;
+
+    color: rgba(
+        255,
+        255,
+        255,
+        0.65
+    );
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.sort-option:hover {
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.09
+        );
+
+    color: #ffffff;
+
+    transform:
+        translateX(3px);
+}
+
+
+/* =========================================================
+   # ACTIVE SORT OPTION
+========================================================= */
+
+.sort-option.active {
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.13
+        );
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   # CHECK MARK
+========================================================= */
+
+.sort-check {
+
+    font-size: 13px;
+
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   # LIGHT MODE SORT
+========================================================= */
+
+.light-mode .sort-trigger {
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.65
+        );
+
+    color: #111111;
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.10
+        );
+
+    box-shadow:
+        0 8px 30px
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+}
+
+
+.light-mode .sort-trigger:hover {
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.85
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.16
+        );
+}
+
+
+.light-mode .sort-menu {
+
+    background:
+        rgba(
+            248,
+            249,
+            251,
+            0.92
+        );
+
+    border-color:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+    box-shadow:
+        0 20px 60px
+        rgba(
+            0,
+            0,
+            0,
+            0.15
+        );
+}
+
+
+.light-mode .sort-option {
+
+    color:
+        rgba(
+            0,
+            0,
+            0,
+            0.60
+        );
+}
+
+
+.light-mode .sort-option:hover {
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.06
+        );
+
+    color: #111111;
+}
+
+
+.light-mode .sort-option.active {
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.08
+        );
+
+    color: #111111;
+}
+
+
+/* =========================================================
+   # MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .products-sort-row {
+
+        align-items: center;
+    }
+
+    .sort-trigger {
+
+        min-width: 155px;
+
+        height: 42px;
+
+        font-size: 11px;
+    }
+
+    .sort-menu {
+
+        width: 205px;
+
+        right: 0;
+    }
+
+}
