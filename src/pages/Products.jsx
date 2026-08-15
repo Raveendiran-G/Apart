@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import products from "../data/products";
 import Footer from "../components/Footer";
+import { NavLink } from "react-router-dom";
 
 const Products = () => {
   const [search, setSearch] = useState("");
@@ -35,32 +36,38 @@ const Products = () => {
       {/* HEADER */}
       <header className="products-navbar">
 
-        <Link
-          to="/"
-          className="products-brand"
-        >
+        <Link to="/" className="products-brand">
           <img
             src="/apart-logo.png"
             alt="aPart"
           />
         </Link>
 
-        <nav className="products-nav">
+        <nav className="nav-links">
 
-          <Link to="/">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+          >
             Home
-          </Link>
+          </NavLink>
 
-          <Link
+          <NavLink
             to="/products"
-            className="products-active"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
           >
             Products
-          </Link>
+          </NavLink>
 
         </nav>
 
       </header>
+
+
 
 
       {/* PRODUCTS */}

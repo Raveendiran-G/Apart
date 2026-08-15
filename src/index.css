@@ -2296,3 +2296,308 @@ body:has(.intro-screen) {
   }
 
 }
+
+/* =========================================
+   GLOBAL LIGHT BLUE BUTTON THEME
+========================================= */
+
+button,
+.view-details,
+.explore-button,
+.details-action,
+.no-products button {
+  background: #8fd3ff !important;
+  color: #063b63 !important;
+
+  border: none !important;
+
+  box-shadow:
+    0 6px 18px rgba(80, 170, 225, 0.20) !important;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease !important;
+}
+
+
+/* HOVER */
+
+button:hover,
+.view-details:hover,
+.explore-button:hover,
+.details-action:hover,
+.no-products button:hover {
+  background: #69bff5 !important;
+  color: #ffffff !important;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 24px rgba(80, 170, 225, 0.30) !important;
+}
+
+
+/* ACTIVE */
+
+button:active,
+.view-details:active,
+.explore-button:active,
+.details-action:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   NAVBAR - LIGHT BLUE BUTTONS
+========================================= */
+
+.products-navbar nav a,
+.nav-links a {
+  background: #8fd3ff !important;
+  color: #063b63 !important;
+
+  border: none !important;
+  border-radius: 8px !important;
+
+  padding: 10px 20px !important;
+
+  text-decoration: none !important;
+
+  transition: all 0.25s ease !important;
+}
+
+
+/* HOVER */
+
+.products-navbar nav a:hover,
+.nav-links a:hover {
+  background: #69bff5 !important;
+  color: #ffffff !important;
+
+  transform: translateY(-2px);
+}
+
+
+/* ACTIVE BUTTON */
+
+.products-navbar nav a.active,
+.products-navbar nav a.products-active,
+.nav-links a.active {
+  background: #8fd3ff !important;
+  color: #063b63 !important;
+}
+/* =========================================
+   aPART - LIGHT BLUE BUTTON THEME
+========================================= */
+
+button,
+.view-details,
+.explore-button,
+.explore-products,
+.details-action,
+.no-products button,
+.nav-links .nav-link,
+.products-navbar nav a {
+  background: #69c3e3 !important;
+  color: #ffffff !important;
+
+  border: none !important;
+  border-radius: 8px !important;
+
+  text-decoration: none !important;
+
+  transition: all 0.25s ease !important;
+}
+
+
+/* HOVER */
+
+button:hover,
+.view-details:hover,
+.explore-button:hover,
+.explore-products:hover,
+.details-action:hover,
+.no-products button:hover,
+.nav-links .nav-link:hover,
+.products-navbar nav a:hover {
+  background: #4db2d5 !important;
+  color: #ffffff !important;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(80, 180, 215, 0.25) !important;
+}
+
+
+/* ACTIVE */
+
+button:active,
+.view-details:active,
+.explore-button:active,
+.explore-products:active,
+.details-action:active {
+  transform: translateY(0);
+}
+
+.site-footer {
+  width: 100%;
+
+  background: #0088b9;
+
+  color: #ffffff;
+
+  position: relative;
+
+  z-index: 20;
+}
+
+/* =========================================
+   FOOTER TEXT COLORS
+========================================= */
+
+.footer-brand p {
+  color: #132c3d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* COLUMN HEADINGS */
+
+.footer-column h3 {
+  color: #0a293e;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* LINKS */
+
+.footer-column a {
+  color: #0a2b3d;
+  text-decoration: none;
+  font-size: 14px;
+
+  transition: all 0.25s ease;
+}
+
+.footer-column a:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+
+/* DESCRIPTION TEXT */
+
+.footer-column p {
+  color: #082637;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* BOTTOM BAR */
+
+.footer-bottom {
+  border-top: 1px solid rgba(3, 32, 52, 0.25);
+}
+
+.footer-bottom p {
+  color: #164f6d;
+  font-size: 12px;
+}
+/* =========================================
+   NAVBAR BUTTONS
+========================================= */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-links .nav-link {
+  background: transparent !important;
+  color: #063b63 !important;
+
+  padding: 10px 20px;
+
+  border-radius: 8px;
+
+  text-decoration: none !important;
+
+  font-weight: 600;
+
+  transition: all 0.25s ease;
+}
+
+
+/* ONLY CURRENT PAGE IS BLUE */
+
+.nav-links .nav-link.active {
+  background: #176db7 !important;
+  color: #ffffff !important;
+
+  box-shadow:
+    0 6px 16px rgba(23, 109, 183, 0.25);
+}
+
+
+/* OTHER BUTTON */
+
+.nav-links .nav-link:not(.active) {
+  background: transparent !important;
+  color: #063b63 !important;
+}
+
+
+/* OPTIONAL HOVER */
+
+.nav-links .nav-link:not(.active):hover {
+  color: #176db7 !important;
+}
+
+/* NAVBAR */
+
+.nav-links .nav-link {
+  background: transparent !important;
+  color: #063b63 !important;
+
+  padding: 10px 20px;
+  border-radius: 8px;
+
+  border: none !important;
+  text-decoration: none !important;
+
+  box-shadow: none !important;
+
+  transition: 0.25s ease;
+}
+
+
+/* ONLY ACTIVE PAGE = LIGHT BLUE */
+
+.nav-links .nav-link.active {
+  background: #69c3e3 !important;
+  color: #ffffff !important;
+
+  box-shadow: 0 6px 16px rgba(105, 195, 227, 0.30) !important;
+}
+
+
+/* INACTIVE */
+
+.nav-links .nav-link:not(.active) {
+  background: transparent !important;
+  color: #063b63 !important;
+}
+
+
+/* INACTIVE HOVER */
+
+.nav-links .nav-link:not(.active):hover {
+  background: transparent !important;
+  color: #063b63 !important;
+}
