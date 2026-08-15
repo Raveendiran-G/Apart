@@ -1,234 +1,111 @@
+import React from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-    ArrowLeft,
-    ExternalLink
-} from "lucide-react";
-
 import products from "../data/products";
 
+const ProductDetails = () => {
+  const { id } = useParams();
 
-function ProductDetails() {
+  const product = products.find(
+    (item) => item.id === Number(id)
+  );
 
-    const { id } = useParams();
-
-    const product = products.find(
-        (item) =>
-            String(item.id) === String(id)
-    );
-
-
-    /* =====================================================
-       PRODUCT NOT FOUND
-    ===================================================== */
-
-    if (!product) {
-
-        return (
-            <main className="product-details-page">
-
-                <div className="product-not-found">
-
-                    <p>
-                        PRODUCT NOT FOUND
-                    </p>
-
-                    <h1>
-                        Sorry, we couldn't find
-                        that product.
-                    </h1>
-
-                    <Link
-                        to="/products"
-                        className="back-products-button"
-                    >
-                        <ArrowLeft size={17} />
-
-                        Back to Products
-                    </Link>
-
-                </div>
-
-            </main>
-        );
-    }
-
-
+  if (!product) {
     return (
-        <main className="product-details-page">
-
-
-            {/* =================================================
-               BACK TO PRODUCTS
-            ================================================= */}
-
-            <Link
-                to="/products"
-                className="details-back-button"
-            >
-                <ArrowLeft size={17} />
-
-                Back to Products
-            </Link>
-
-
-            {/* =================================================
-               PRODUCT DETAILS
-            ================================================= */}
-
-            <section className="product-details-container">
-
-
-                {/* =================================================
-                   PRODUCT IMAGE
-                ================================================= */}
-
-                <div className="details-image-container">
-
-                    {product.image ? (
-
-                        <img
-                            src={product.image}
-                            alt={product.name}
-                            className="details-product-image"
-                        />
-
-                    ) : (
-
-                        <div className="details-image-placeholder">
-
-                            {product.name}
-
-                        </div>
-
-                    )}
-
-                </div>
-
-
-                {/* =================================================
-                   PRODUCT INFORMATION
-                ================================================= */}
-
-                <div className="details-product-info">
-
-
-                    <p className="details-eyebrow">
-                        APART COLLECTION
-                    </p>
-
-
-                    <h1>
-                        {product.name}
-                    </h1>
-
-
-                    <p className="details-description">
-                        {product.description}
-                    </p>
-
-
-                    {/* =================================================
-                       PRICE
-                    ================================================= */}
-
-                    <div className="details-price">
-
-                        ₹
-                        {product.price?.toLocaleString(
-                            "en-IN"
-                        )}
-
-                    </div>
-
-
-                    {/* =================================================
-                       FEATURES
-                    ================================================= */}
-
-                    <div className="details-features">
-
-                        <div>
-
-                            <span>
-                                01
-                            </span>
-
-                            <p>
-                                Minimal design
-                            </p>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                02
-                            </span>
-
-                            <p>
-                                Designed for everyday
-                                experiences
-                            </p>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                03
-                            </span>
-
-                            <p>
-                                Built around simplicity
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    {/* =================================================
-                       OFFICIAL WEBSITE BUTTON
-                    ================================================= */}
-
-                    <a
-                        href={product.officialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="official-buy-button"
-                    >
-
-                        <span>
-                            Visit Official Website
-                        </span>
-
-                        <ExternalLink
-                            size={17}
-                        />
-
-                    </a>
-
-
-                    {/* =================================================
-                       SMALL INFORMATION
-                    ================================================= */}
-
-                    <p className="official-link-note">
-
-                        You will be redirected to the
-                        official shopping website.
-
-                    </p>
-
-                </div>
-
-            </section>
-
-        </main>
+      <div className="details-page">
+        <h1>Product Not Found</h1>
+
+        <Link to="/products" className="back-button">
+          ← Back to Products
+        </Link>
+      </div>
     );
-}
+  }
 
+  return (
+    <div className="details-page">
+
+      {/* HEADER */}
+      <header className="details-navbar">
+
+        <Link to="/" className="details-brand">
+          <img
+            src="/apart-logo.png"
+            alt="aPart"
+          />
+        </Link>
+
+        <nav>
+          <Link to="/">Home</Link>
+
+          <Link
+            to="/products"
+            className="details-products-link"
+          >
+            Products
+          </Link>
+        </nav>
+
+      </header>
+
+
+      {/* DETAILS */}
+      <main className="details-container">
+
+        <Link
+          to="/products"
+          className="back-link"
+        >
+          ← Back to Products
+        </Link>
+
+
+        <div className="details-card">
+
+          {/* IMAGE */}
+          <div className="details-image">
+
+            <img
+              src={product.image}
+              alt={product.name}
+            />
+
+          </div>
+
+
+          {/* INFORMATION */}
+          <div className="details-info">
+
+            <span className="details-label">
+              APART COLLECTION
+            </span>
+
+            <h1>{product.name}</h1>
+
+            <p className="details-description">
+              {product.description}
+            </p>
+
+            <p className="details-text">
+              Designed with simplicity, quality and
+              everyday usability in mind. This product
+              represents the aPart approach to creating
+              useful products with clean and modern
+              design.
+            </p>
+
+            <button className="details-action">
+              Explore Product
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </div>
+
+      </main>
+
+    </div>
+  );
+};
 
 export default ProductDetails;

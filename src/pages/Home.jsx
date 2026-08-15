@@ -1,40 +1,91 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import "../index.css";
 
-function Home() {
+const Home = () => {
   return (
-    <main className="home">
+    <div className="home-page">
 
-      <div className="hero-content">
+      {/* Background decorative circles */}
+      <div className="bg-circle circle-one"></div>
+      <div className="bg-circle circle-two"></div>
 
-        <p className="hero-label">
-          WELCOME TO
-        </p>
+      {/* Header */}
+      <header className="navbar">
 
-        <h1 className="home-logo">
-          Apart
-        </h1>
-
-        <p className="hero-description">
-          A modern collection designed around simplicity,
-          individuality and beautiful experiences.
-        </p>
-
-        <Link
-          to="/products"
-          className="explore-button"
-        >
-          Explore Products
+        <Link to="/" className="brand-logo">
+          <img src="/apart-logo.png" alt="aPart" />
         </Link>
 
-      </div>
+        <nav className="nav-links">
+          <Link to="/" className="nav-link active">
+            Home
+          </Link>
 
-      <div className="scroll-indicator">
-        <span></span>
-        Scroll to explore
-      </div>
+          <Link to="/products" className="nav-link">
+            Products
+          </Link>
+        </nav>
 
-    </main>
+      </header>
+
+      {/* Hero Section */}
+      <main className="hero">
+
+        {/* LEFT SIDE */}
+        <section className="hero-logo-section">
+
+          <div className="logo-orbit orbit-one"></div>
+          <div className="logo-orbit orbit-two"></div>
+          <div className="logo-orbit orbit-three"></div>
+
+          {/* Glowing particles */}
+          <span className="particle particle-one"></span>
+          <span className="particle particle-two"></span>
+          <span className="particle particle-three"></span>
+          <span className="particle particle-four"></span>
+
+          <div className="hero-logo-wrapper">
+            <img
+              src="/apart-logo.png"
+              alt="aPart"
+              className="hero-logo"
+            />
+          </div>
+
+        </section>
+
+        {/* RIGHT SIDE */}
+        <section className="hero-content">
+
+          <div className="welcome-text">
+            WELCOME TO APART
+          </div>
+
+          <h1>
+            Simple products.
+            <br />
+            Better everyday
+            <br />
+            choices.
+          </h1>
+
+          <p>
+            Discover products designed with simplicity,
+            quality and style in mind.
+          </p>
+
+          <Link to="/products" className="explore-button">
+            Explore Products
+            <span>→</span>
+          </Link>
+
+        </section>
+
+      </main>
+
+    </div>
   );
-}
+};
 
 export default Home;

@@ -1,449 +1,110 @@
-import {
-    useMemo,
-    useState
-} from "react";
-
-import {
-    Search,
-    X,
-    SlidersHorizontal
-} from "lucide-react";
-
+import React from "react";
+import { Link } from "react-router-dom";
 import products from "../data/products";
-import ProductCard from "../components/ProductCard";
+
+const Products = () => {
+  return (
+    <div className="products-page">
 
 
-function Products() {
 
-    /* =====================================================
-       # STATE
-    ===================================================== */
+      {/* BACKGROUND VIDEO */}
+      <video
+        className="products-background-video"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/backgrounds/video.mp4" type="video/mp4" />
+      </video>
 
-    const [searchTerm, setSearchTerm] = useState("");
+      {/* VIDEO OVERLAY */}
+      <div className="products-video-overlay"></div>
 
-    const [sortBy, setSortBy] =
-        useState("featured");
+      {/* YOUR EXISTING CONTENT */}
+      <header className="products-navbar">
+        ...
+      </header>
 
-    const [sortOpen, setSortOpen] =
-        useState(false);
-
-
-    /* =====================================================
-       # SORT OPTIONS
-    ===================================================== */
-
-    const sortOptions = [
-        {
-            value: "featured",
-            label: "Sort by"
-        },
-        {
-            value: "price-low",
-            label: "Price: Low → High"
-        },
-        {
-            value: "price-high",
-            label: "Price: High → Low"
-        },
-        {
-            value: "name-az",
-            label: "Name: A → Z"
-        },
-        {
-            value: "name-za",
-            label: "Name: Z → A"
-        }
-    ];
+      <main className="products-content">
+        ...
+      </main>
 
 
-    /* =====================================================
-       # SEARCH + SORT
-    ===================================================== */
+      {/* HEADER */}
+      <header className="products-navbar">
 
-    const filteredProducts = useMemo(() => {
+        <Link to="/" className="products-brand">
+          <img src="/apart-logo.png" alt="aPart" />
+        </Link>
 
-        let result = [...products];
+        <nav className="products-nav">
+          <Link to="/">Home</Link>
 
+          <Link to="/products" className="products-active">
+            Products
+          </Link>
+        </nav>
 
-        /* -------------------------------------------------
-           SEARCH
-        ------------------------------------------------- */
-
-        const search =
-            searchTerm
-                .trim()
-                .toLowerCase();
-
-
-        if (search) {
-
-            result = result.filter(
-                (product) => {
-
-                    const name =
-                        product.name
-                            ?.toLowerCase() || "";
-
-                    const description =
-                        product.description
-                            ?.toLowerCase() || "";
-
-                    return (
-                        name.includes(search) ||
-                        description.includes(search)
-                    );
-                }
-            );
-        }
+      </header>
 
 
-        /* -------------------------------------------------
-           SORT
-        ------------------------------------------------- */
+      {/* PRODUCTS CONTENT */}
+      <main className="products-content">
 
-        if (sortBy === "price-low") {
+        <div className="products-heading">
+          <span>APART COLLECTION</span>
 
-            result.sort(
-                (a, b) =>
-                    Number(a.price) -
-                    Number(b.price)
-            );
+          <h1>Our Products</h1>
 
-        }
-
-        else if (sortBy === "price-high") {
-
-            result.sort(
-                (a, b) =>
-                    Number(b.price) -
-                    Number(a.price)
-            );
-
-        }
-
-        else if (sortBy === "name-az") {
-
-            result.sort(
-                (a, b) =>
-                    a.name.localeCompare(
-                        b.name
-                    )
-            );
-
-        }
-
-        else if (sortBy === "name-za") {
-
-            result.sort(
-                (a, b) =>
-                    b.name.localeCompare(
-                        a.name
-                    )
-            );
-        }
+          <p>
+            Explore our collection of simple, modern and useful products.
+          </p>
+        </div>
 
 
-        return result;
+        <div className="products-grid">
 
-    }, [
-        searchTerm,
-        sortBy
-    ]);
+          {products.map((product) => (
+            <div className="product-card" key={product.id}>
 
+              <div className="product-image-box">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                />
+              </div>
 
-    /* =====================================================
-       # CURRENT SORT LABEL
-    ===================================================== */
+              <div className="product-info">
 
-    const currentSort =
-        sortOptions.find(
-            (option) =>
-                option.value === sortBy
-        );
-
-
-    /* =====================================================
-       # RESET SEARCH
-    ===================================================== */
-
-    const clearSearch = () => {
-
-        setSearchTerm("");
-
-    };
-
-
-    /* =====================================================
-       # CHANGE SORT
-    ===================================================== */
-
-    const handleSortChange = (value) => {
-
-        setSortBy(value);
-
-        setSortOpen(false);
-
-    };
-
-
-    /* =====================================================
-       # PAGE
-    ===================================================== */
-
-    return (
-
-        <main className="products-page">
-
-
-            {/* =================================================
-               # PRODUCTS HEADER
-            ================================================= */}
-
-            <section className="products-header">
-
-                <p>
-                    APART COLLECTION
-                </p>
-
-                <h1>
-                    Products
-                </h1>
-
-                <span>
-                    Discover something that feels different.
+                <span className="product-label">
+                  Apart Collection
                 </span>
 
-            </section>
+                <h2>{product.name}</h2>
 
+                <p>{product.description}</p>
 
-            {/* =================================================
-               # SEARCH
-            ================================================= */}
+                <Link
+                  to={`/products/${product.id}`}
+                  className="view-details"
+                >
+                  View Details
+                  <span>→</span>
+                </Link>
 
-            <div className="products-search-wrapper">
-
-                <div className="products-search">
-
-                    <Search
-                        size={19}
-                        className="search-icon"
-                    />
-
-
-                    <input
-                        type="text"
-                        placeholder="Search products..."
-                        value={searchTerm}
-                        onChange={(event) =>
-                            setSearchTerm(
-                                event.target.value
-                            )
-                        }
-                    />
-
-
-                    {searchTerm && (
-
-                        <button
-                            type="button"
-                            className="search-clear"
-                            onClick={clearSearch}
-                            aria-label="Clear search"
-                        >
-
-                            <X size={18} />
-
-                        </button>
-
-                    )}
-
-                </div>
+              </div>
 
             </div>
+          ))}
 
+        </div>
 
-            {/* =================================================
-               # SORT ROW
-            ================================================= */}
+      </main>
 
-            <div className="products-sort-row">
-
-
-                {/* PRODUCT COUNT */}
-
-                <div className="products-count">
-
-                    {filteredProducts.length}{" "}
-
-                    {filteredProducts.length === 1
-                        ? "product"
-                        : "products"}
-
-                </div>
-
-
-                {/* =================================================
-                   # CUSTOM SORT DROPDOWN
-                ================================================= */}
-
-                <div className="custom-sort">
-
-
-                    {/* SORT BUTTON */}
-
-                    <button
-                        type="button"
-                        className="sort-trigger"
-                        onClick={() =>
-                            setSortOpen(
-                                !sortOpen
-                            )
-                        }
-                    >
-
-                        <SlidersHorizontal
-                            size={16}
-                        />
-
-
-                        <span>
-                            {currentSort?.label}
-                        </span>
-
-
-                        <span
-                            className={
-                                sortOpen
-                                    ? "sort-arrow open"
-                                    : "sort-arrow"
-                            }
-                        >
-                            ↓
-                        </span>
-
-                    </button>
-
-
-                    {/* =================================================
-                       # SORT MENU
-                    ================================================= */}
-
-                    {sortOpen && (
-
-                        <div className="sort-menu">
-
-                            {sortOptions.map(
-                                (option) => (
-
-                                    <button
-                                        key={
-                                            option.value
-                                        }
-                                        type="button"
-                                        className={
-                                            sortBy ===
-                                            option.value
-                                                ? "sort-option active"
-                                                : "sort-option"
-                                        }
-                                        onClick={() =>
-                                            handleSortChange(
-                                                option.value
-                                            )
-                                        }
-                                    >
-
-                                        <span>
-                                            {
-                                                option.label
-                                            }
-                                        </span>
-
-
-                                        {sortBy ===
-                                            option.value && (
-
-                                            <span className="sort-check">
-                                                ✓
-                                            </span>
-
-                                        )}
-
-                                    </button>
-
-                                )
-                            )}
-
-                        </div>
-
-                    )}
-
-                </div>
-
-            </div>
-
-
-            {/* =================================================
-               # PRODUCTS
-            ================================================= */}
-
-            {filteredProducts.length > 0 ? (
-
-                <div className="products-grid">
-
-                    {filteredProducts.map(
-                        (product) => (
-
-                            <ProductCard
-                                key={product.id}
-                                product={product}
-                            />
-
-                        )
-                    )}
-
-                </div>
-
-            ) : (
-
-                /* =================================================
-                   # NO RESULTS
-                ================================================= */
-
-                <div className="no-products">
-
-                    <div className="no-products-icon">
-
-                        <Search size={30} />
-
-                    </div>
-
-
-                    <h2>
-                        No products found
-                    </h2>
-
-
-                    <p>
-                        Try searching for another product.
-                    </p>
-
-
-                    <button
-                        type="button"
-                        onClick={clearSearch}
-                    >
-                        Show all products
-                    </button>
-
-                </div>
-
-            )}
-
-        </main>
-
-    );
-}
-
+    </div>
+  );
+};
 
 export default Products;

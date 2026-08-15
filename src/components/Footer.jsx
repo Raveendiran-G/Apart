@@ -1,87 +1,76 @@
-import { Mail, Phone } from "lucide-react";
-
 function Footer() {
-    return (
-        <footer className="footer">
 
-            {/* =================================================
-               FOOTER MAIN CONTENT
-            ================================================= */}
+  return (
+    <footer className="footer">
 
-            <div className="footer-container">
+      <div className="footer-main">
 
-                {/* BRAND */}
+        <div className="footer-brand">
 
-                <div className="footer-brand">
+          <img
+            src="/apart-logo.png"
+            alt="Apart"
+          />
 
-                    <h2>Apart</h2>
+          <p>
+            Designed around simplicity,
+            individuality and beautiful experiences.
+          </p>
 
-                    <p>
-                        A modern collection designed around
-                        simplicity, individuality and
-                        beautiful experiences.
-                    </p>
-
-                </div>
+        </div>
 
 
-                {/* CONTACT */}
+        <div className="footer-column">
 
-                <div className="footer-column">
+          <h4>Shop</h4>
 
-                    <h3>Contact</h3>
+          <a href="/products">All Products</a>
+          <a href="/products">Electronics</a>
+          <a href="/products">Fashion</a>
+          <a href="/products">Accessories</a>
 
-                    <a href="tel:+919999999999">
-                        <Phone size={15} />
-                        +91 99999 99999
-                    </a>
-
-                    <a href="mailto:abc@gmail.com">
-                        <Mail size={15} />
-                        abc@gmail.com
-                    </a>
-
-                </div>
+        </div>
 
 
-                {/* COMPANY */}
+        <div className="footer-column">
 
-                <div className="footer-column">
+          <h4>Company</h4>
 
-                    <h3>Apart</h3>
+          <a href="/">About Apart</a>
+          <a href="/">Contact</a>
+          <a href="/">Careers</a>
+          <a href="/">Support</a>
 
-                    <a href="/">
-                        Home
-                    </a>
-
-                    <a href="/products">
-                        Products
-                    </a>
-
-                </div>
-
-            </div>
+        </div>
 
 
-            {/* =================================================
-               FOOTER BOTTOM
-            ================================================= */}
+        <div className="footer-column">
 
-            <div className="footer-bottom">
+          <h4>Follow</h4>
 
-                <p>
-                    © {new Date().getFullYear()} Apart.
-                    All rights reserved.
-                </p>
+          <a href="/">Instagram</a>
+          <a href="/">LinkedIn</a>
+          <a href="/">Twitter</a>
 
-                <p className="made-in-india">
-                    Made with <span>❤️</span> in India
-                </p>
+        </div>
 
-            </div>
+      </div>
 
-        </footer>
-    );
+
+      <div className="footer-bottom">
+
+        <span>
+          © 2026 Apart. All rights reserved.
+        </span>
+
+        <span>
+          Made with simplicity.
+        </span>
+
+      </div>
+
+    </footer>
+  );
 }
 
 export default Footer;

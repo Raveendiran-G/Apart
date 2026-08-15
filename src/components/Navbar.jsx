@@ -1,47 +1,74 @@
-import { Link } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle";
-import SoundToggle from "./SoundToggle";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-function Navbar({
-  darkMode,
-  setDarkMode,
-  soundEnabled,
-  setSoundEnabled,
-}) {
+function Navbar() {
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (search.trim()) {
+      navigate(`/products?search=${encodeURIComponent(search)}`);
+    }
+  };
+
   return (
-    <nav className="navbar">
+    <header className="navbar">
 
-     <Link to="/" className="brand logo-entrance">
-    Apart
-</Link>
-
-      <div className="nav-links">
-
-        <Link to="/">
-          Home
+      <div className="nav-left">
+        <Link to="/" className="brand">
+          <img
+            src="/apart-logo.png"
+            alt="Apart"
+            className="brand-logo"
+          />
         </Link>
-
-        <Link to="/products">
-          Products
-        </Link>
-
       </div>
 
-      <div className="nav-actions">
+      <form className="nav-search" onSubmit={handleSearch}>
+        <span className="search-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24">
+            <circle
+              cx="11"
+              cy="11"
+              r="7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            <path
+              d="M16 16L21 21"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+          </svg>
+        </span>
 
-        <ThemeToggle
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
+        <input
+          type="text"
+          placeholder="Search for products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
 
-        <SoundToggle
-          soundEnabled={soundEnabled}
-          setSoundEnabled={setSoundEnabled}
-        />
+        <button type="submit">
+          Search
+        </button>
+      </form>
 
-      </div>
+      <nav className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/products">Products</Link>
 
-    </nav>
+        <button className="cart-button">
+          🛒
+          <span>Cart</span>
+        </button>
+      </nav>
+
+    </header>
   );
 }
 
