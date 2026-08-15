@@ -1,76 +1,83 @@
-function Footer() {
+import React from "react";
+import { Link } from "react-router-dom";
 
+const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="site-footer">
 
-      <div className="footer-main">
+      <div className="footer-container">
 
+        {/* BRAND */}
         <div className="footer-brand">
-
-          <img
-            src="/apart-logo.png"
-            alt="Apart"
-          />
+          <Link to="/">
+            <img
+              src="/apart-logo.png"
+              alt="aPart"
+            />
+          </Link>
 
           <p>
-            Designed around simplicity,
-            individuality and beautiful experiences.
+            Simple products. Better everyday choices.
           </p>
-
         </div>
 
 
+        {/* QUICK LINKS */}
         <div className="footer-column">
+          <h3>Quick Links</h3>
 
-          <h4>Shop</h4>
+          <Link to="/">
+            Home
+          </Link>
 
-          <a href="/products">All Products</a>
-          <a href="/products">Electronics</a>
-          <a href="/products">Fashion</a>
-          <a href="/products">Accessories</a>
-
+          <Link to="/products">
+            Products
+          </Link>
         </div>
 
 
+        {/* ABOUT */}
         <div className="footer-column">
+          <h3>About aPart</h3>
 
-          <h4>Company</h4>
-
-          <a href="/">About Apart</a>
-          <a href="/">Contact</a>
-          <a href="/">Careers</a>
-          <a href="/">Support</a>
-
+          <p>
+            We create simple, modern and useful
+            products designed for everyday life.
+          </p>
         </div>
 
 
+        {/* CONTACT */}
         <div className="footer-column">
+          <h3>Contact</h3>
 
-          <h4>Follow</h4>
+          <a href="mailto:support@apart.com">
+            support@apart.com
+          </a>
 
-          <a href="/">Instagram</a>
-          <a href="/">LinkedIn</a>
-          <a href="/">Twitter</a>
-
+          <p>
+            Chennai, India
+          </p>
         </div>
 
       </div>
 
 
+      {/* BOTTOM */}
       <div className="footer-bottom">
 
-        <span>
+        <p>
           © 2026 Apart. All rights reserved.
-        </span>
+        </p>
 
-        <span>
-          Made with simplicity.
-        </span>
+        <p>
+          Designed with simplicity.
+        </p>
 
       </div>
 
     </footer>
   );
-}
+};
 
 export default Footer;

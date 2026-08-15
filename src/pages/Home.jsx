@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (
@@ -63,17 +64,14 @@ const Home = () => {
           </div>
 
           <h1>
-            Simple products.
+            Miles apart.
             <br />
-            Better everyday
+            Tabletop close.
             <br />
-            choices.
+
           </h1>
 
-          <p>
-            Discover products designed with simplicity,
-            quality and style in mind.
-          </p>
+
 
           <Link to="/products" className="explore-button">
             Explore Products
@@ -83,6 +81,7 @@ const Home = () => {
         </section>
 
       </main>
+      <Footer />
 
     </div>
   );
